@@ -29,6 +29,7 @@ function ShowGame(id) {
   const gameSelect = banner_list[id];
   banner.src = gameSelect.bg;
   banner.style.backgroundImage = `url(${gameSelect.bg})`;
+  banner.className = 'B' + gameSelect.id;
   banner_bar.style.width = `${20 * gameSelect.id}%`;
   banner_text.innerHTML = `
           <h2>${gameSelect.title}</h2>
@@ -179,3 +180,55 @@ ddMenu.addEventListener('click', (e) => {
     }
   }
 });
+
+//            open/close menu-login                      //
+
+function toggleMenu() {
+  const loginMenu = document.querySelector('#menu .w-login');
+
+  loginMenu.classList.toggle('open');
+  document.body.classList.toggle('menu-expanded');
+
+  loginMenu.addEventListener('click', (e) => {
+    const local = e.target;
+    if (local.className == 'w-login open') {
+      loginMenu.classList.remove('open');
+      document.body.classList.toggle('menu-expanded');
+    }
+  });
+}
+
+// nav mobile //
+
+const menu = document.querySelector('.mobile-menu');
+const navList = document.querySelector('nav ul');
+
+menu.addEventListener('click', (e) => {
+  navList.classList.toggle('active');
+  menu.classList.toggle('open');
+  document.body.classList.toggle('menu-expanded');
+  window.scroll(0, 0);
+});
+
+//           mudar sistema operacional no botão              //
+
+function downButton() {
+  const button = document.querySelector('#footer .bt-download button');
+  let system = navigator.userAgent;
+  var SO = 'Not known';
+
+  if (system.indexOf('Win') != -1) {
+    SO = 'Windows';
+  } else if (system.indexOf('Mac') != -1) {
+    SO = 'MacOS';
+  } else if (system.indexOf('Linux') != -1) {
+    SO = 'Linux';
+  }
+
+  button.innerHTML = `
+  <img src="/assets/icons/${SO}-icon.png" /> Baixar para o ${SO} 
+  `;
+  console.log(SO);
+}
+
+downButton();

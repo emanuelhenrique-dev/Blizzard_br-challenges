@@ -21,7 +21,11 @@
       <section id="menu">
         <div class="w-login">
           <div class="modal-login">
-            <img class="close-menu" src="/assets/login/close.png" />
+            <img
+              onclick="toggleMenu()"
+              class="close-menu"
+              src="/assets/login/close.png"
+            />
             <div class="login">
               <img
                 src="/assets/login/battlenet-logo.png"
@@ -51,11 +55,6 @@
           <a class="logo" href="#HOME"
             ><img src="assets/logo-blizzard.png" alt="Logo Blizzard"
           /></a>
-          <div class="mobile-menu">
-            <div class="line1"></div>
-            <div class="line2"></div>
-            <div class="line3"></div>
-          </div>
           <ul>
             <li id="1" class="dd">
               Jogos
@@ -233,9 +232,17 @@
           </ul>
           <div class="nav-buttons">
             <button>Criar conta</button>
-            <button><img src="assets/icons/user-icon.png" />Logar</button>
+            <button onclick="toggleMenu()">
+              <img src="assets/icons/user-icon.png" />Logar
+            </button>
+          </div>
+          <div class="mobile-menu">
+            <div class="line1"></div>
+            <div class="line2"></div>
+            <div class="line3"></div>
           </div>
         </nav>
+        <div class="nav-overlay"></div>
       </section>
       <section id="banner-hero">
         <div class="overlay-bg"></div>
@@ -374,7 +381,7 @@
             </li>
           </ul>
           <button>
-            <img src="/assets/icons/apple-icon.png" /> Baixar para o MacOS
+            <img src="/assets/icons/bliz-icon.svg" /> Baixar para seu OS
           </button>
           <div class="mobile-download">
             <img src="/assets/icons/cell-icon.svg" />

@@ -12,11 +12,12 @@
   --secondary-color: #40C2FF;
   --text-card-color:  #E5E5E5;
   --nav-height: 9.6rem;
-  --pad-inline: 15vw;
+  --pad-inline: 14vw;
 }
 
 html {
   scroll-behavior: smooth;
+  overflow: overlay;
 }
 
 body {
@@ -29,6 +30,7 @@ body {
   height: 100vh;
   margin: auto;
   position: relative;
+  overflow-x: hidden;
 }
 
 ul {
@@ -50,6 +52,11 @@ a {
   text-decoration: none;
 }
 
+a *{
+  display: block;
+}
+
+
 *img {
   display: block
 }
@@ -58,6 +65,7 @@ a {
 
 /*         Login          */
 #menu .w-login {
+  display: none;
   position: fixed;
   top: 0;
   right: 0;
@@ -66,6 +74,16 @@ a {
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.539);
   
+}
+
+#menu .w-login.open {
+  display: block;
+  overflow: hidden;
+  height: 100%;
+}
+
+body.menu-expanded {
+  overflow: hidden;
 }
 
 #menu .modal-login {
@@ -93,11 +111,95 @@ a {
 #menu .modal-login .close-menu {
   margin: 24px 24px 5px 0;
   align-self: flex-end;
+  cursor: pointer;
+}
+
+#menu .modal-login .login img {
+  Width:166.53px;
+  Height:20px;
 }
 
 #menu .modal-login .login {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  width: 80%;
+}
+
+#menu .modal-login .login input {
+  width: min(426px,80%);
+  height: 48px;
+  border-radius: 4px;
+  background: #FFFFFF;
+  color: #363842;
+  font-weight: 600;
+  font-size: 1.5rem;
+  line-height: 2.2rem;
+  padding-left: 16px;
+  outline: none;
+  border: none;
+}
+
+#menu .modal-login .login input::placeholder {
+  color: rgba(54, 56, 66, 0.6);
+}
+
+#menu .modal-login .login input:focus {
+  border: 2px solid var(--primary-color);
+}
+
+#menu .modal-login .login input[type=text] {
+  margin-top: 40px;
+  margin-bottom: 16px;
+}
+
+
+#menu .modal-login .login button {
+  width: min(426px,80%);
+  padding-block: 14px;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 24px;
+  margin-top: 24px;
+  margin-bottom: 41px;
+}
+
+#menu .modal-login .login button + p{
+  font-size: 14px;
+  line-height: 21px;
+}
+
+#menu .modal-login .login .others {
+  display: flex;
+  align-items:center;
+  gap: 16px;
+}
+
+#menu .modal-login .login .others a {
+  width: 48px;
+  height: 48px;
+  background: #FFFFFF;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 16px;
+  margin-bottom: 35px;
+}
+
+#menu .modal-login .login .others a img {
+  height: 22px;
+}
+
+#menu .modal-login .login a,
+#menu .modal-login .login p {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+#menu .modal-login .login div + p {
+  margin-bottom: 16px;
 }
 
 #menu .modal-login .login a {
@@ -138,11 +240,12 @@ a {
   border-bottom: 1.5px solid rgba(255, 255, 255, 0.1);
 }
 
-#menu nav::after {
+#menu::after {
   content: '';
   position: absolute;
+  z-index: 100;
   width: 43px;
-  bottom: -1.5px;
+  top: var(--nav-height);
   left: var(--pad-inline);
   border-bottom: 2px solid var(--primary-color);
 }
@@ -151,7 +254,19 @@ a {
 
 #menu nav .mobile-menu {
   display: none;
+  cursor: pointer;
+  position: relative;
+  z-index: 10;
 }
+
+.mobile-menu div {
+  width: 28px;
+  height: 1.5px;
+  background-color: #FFFFFF;
+  margin: 9.3px;
+  transition: 0.3s;
+}
+
 
 #menu nav ul li {
   cursor: pointer;
@@ -213,10 +328,12 @@ a {
 
 #menu nav ul .dd .menu-dd ul {
   display: flex;
-  gap: 28px 54px;
+  gap: 28px 1.2%;
+  justify-content: center;
   flex-wrap: wrap;
   padding-top: 28.5px;
   padding-inline: var(--pad-inline);
+  padding-inline: calc(var(--pad-inline) - 6rem);
 }
 
 #menu nav ul .dd .menu-dd ul li  {
@@ -289,11 +406,11 @@ a {
 
 /*  drop down 2 */
 
-#menu nav ul .dd:nth-child(2) .menu-dd {
+#menu nav ul .dd:nth-child(2) .menu-dd ul{
   flex-direction: column;
   gap: 64px;
+  justify-content: center;
   align-items: center;
-  justify-content: flex-end;
   height: 520px;
 }
 
@@ -364,8 +481,8 @@ a {
 #banner-hero {
   padding-top: calc(7.5rem + var(--nav-height));
   padding-left: var(--pad-inline);
-  padding-right: calc(var(--pad-inline) - 20px);;
-  height: 80vh;
+  padding-right: calc(var(--pad-inline) - 20px);
+  height: 736px;
   background-image: url('/assets/banner-hero/games/diablo-bg.png');
   background-size: cover;
   background-position-y: 15%;
@@ -615,6 +732,7 @@ a {
   background-position: bottom center;
   background-size: 100%;
   transition: background-size 0.3s;
+  border-radius: 4px;
 }
 
 #exclusive-games .productList ul .cardGame .game-img:hover {
@@ -693,12 +811,12 @@ a {
 
 #footer {
   display: flex;
-  flex-wrap: wrap;
   width: 100%;
   height: 852px;
   background-image: url(/assets/footer-background.png);
   background-size: cover;
   padding-left:var(--pad-inline);
+  overflow-x: hidden;
 }
 
 #footer .bt-download {
@@ -717,7 +835,7 @@ a {
   display: flex;
   flex-direction: column;
   gap: 24px;
-  padding-bottom: 39px;
+  padding-bottom: 42px;
 }
 
 #footer .bt-download ul li{
@@ -767,10 +885,846 @@ a {
 #footer .footer-images img {
   position: absolute;
   bottom: 4px;
-  right: 64px;
+  left: 26%;
+}
+
+/*     Responsivo(telas menores)     */
+/*------------------------------------------------------>1440----------*/
+@media (max-width: 1440px) {
+
+  :root {
+    --pad-inline: 8vw;
+  }
+
+  /*         Exclusive games          */
+#exclusive-games {
+  padding-inline: var(--pad-inline);
+  padding-bottom: 11.4vh;
+}
+
+#exclusive-games .header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding-block: 9vh;
 }
 
 
+#exclusive-games .header h2 {
+  max-width: 70px;
+  padding-right: 12vw;
+  font-weight: 700;
+  font-size: 3.2rem;
+  line-height: 110.2%;
+}
+
+#exclusive-games .header a {
+  margin-left: 5%;
+}
+
+#exclusive-games .productList ul .cardGame .game-img ,
+#exclusive-games .productList ul .see-more{
+  width: 280px;
+  height: 384px;
+  margin-bottom: 24px;
+}
+
+/*  capa dos jogos      */
+
+#exclusive-games .productList ul .cardGame img.logo {
+  width: 148px;
+  height: 98px;
+  position: absolute;
+  margin: 0 auto;
+  bottom: 25%;
+  left: 0;
+  right: 0;
+  text-align: center;
+  pointer-events: none;
+} 
+
+#exclusive-games .productList ul .cardGame h3 {
+  font-size: 1.8rem;
+  line-height: 2.7rem;
+  margin-bottom: 4px;
+}
+
+#exclusive-games .productList ul .cardGame .category {
+  font-size: 1.4rem;
+  line-height: 2.1rem;
+}
+
+#exclusive-games .productList ul .see-more {
+  border: 1.5px solid #212428 ;
+  gap: 34px;
+}
+
+#exclusive-games .productList ul .see-more > img {
+  width: 86.72px;
+  height: 40px;
+}
+
+#exclusive-games .productList ul .see-more p{
+  font-size: 1.6rem;
+  line-height: 2.4rem;
+}
+
+/*         Footer          */
+
+#footer {
+  display: flex;
+  width: 100%;
+  height: 848px;
+  background-image: url(/assets/footer-background.png);
+  background-size: cover;
+  padding-left:var(--pad-inline);
+  overflow-x: hidden;
+}
+
+#footer .bt-download {
+  padding-top: 132px;
+}
+
+#footer .bt-download h3 {
+  width: 312px;
+}
+
+
+#footer .footer-images {
+  width: 100%;
+  height: 100%;
+}
+
+#footer .footer-images img {
+  bottom: 4px;
+  left: 43.5%;
+}
+
+}
+/*------------------------------------------------------>1200----------*/ 
+@media (max-width: 1216px) {
+   :root {
+    --pad-inline: 6vw;
+  }
+
+
+  /* navbar */
+  #menu nav {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+  #menu nav .nav-buttons {
+    margin-left: auto;
+  }
+  
+  #menu nav .mobile-menu {
+    display: block;
+    margin-left: 12vw;
+  }
+
+  /*botao do menu*/
+  .mobile-menu.open .line1 {
+    transform: rotate(-45deg) translate(-8px, 8px);
+  }
+  .mobile-menu.open .line2 {
+    opacity: 0;
+  }
+  .mobile-menu.open .line3 {
+    transform: rotate(45deg) translate(-7px, -7px);
+  }
+
+  /*         MEnu-mobile          */
+
+  #menu nav > ul {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2vh;
+    position: fixed;
+    top: 0;
+    right: -50%;
+    z-index: 1;
+    background: linear-gradient(180deg, rgba(14, 17, 23, 0.9) 0%, rgba(14, 17, 23, 0.92) 96.35%, #020203 100%);
+    backdrop-filter: blur(8px);
+    width: 50%;
+    height: 100vh;
+    padding-top: calc(20px + var(--nav-height));
+    overflow: auto;
+    padding-bottom: 30px;
+    transition: 0.4s;
+  }
+
+  #menu nav > ul.active {
+    right: 0;
+  }
+
+  body.menu-expanded #menu .nav-overlay {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    width: 100vw;
+    height: 100vh;
+    background-color: #00000072;
+    overflow: hidden;
+  }
+
+  #menu > nav ul li {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: var(--pad-inline);
+    width: 100%;
+    padding-block: 10px;
+    border-radius: 8px;
+  }
+
+  #menu nav ul li.Active {
+    background:  none;
+    background: none;
+    justify-content: flex-end;
+  }
+
+  #menu nav ul li svg {
+    width: 24px;
+    height: 16px;
+  }
+
+  #menu nav ul li,
+  #menu nav ul li a {
+    font-size: 3.6rem;
+  }
+
+  #menu nav ul .dd {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    gap: 10px;
+  }
+
+  #menu nav ul .dd .menu-dd {
+    display: none ;
+    padding: 0;
+    flex-direction: column;
+    position: static;
+    visibility: visible;
+    opacity: 1;
+  }
+
+  #menu nav ul .dd.Active  .menu-dd { 
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    z-index: 0;
+    width: 100%;
+    height: auto;
+    padding: 0;
+    background: none;
+    backdrop-filter: none;
+    padding-top: 10px;
+  }
+  
+  #menu nav ul .dd .menu-dd ul {
+    display: flex;
+    position: static;
+    flex-direction: column;
+    gap: 5px;
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    padding: 0;
+    padding-bottom: 20px;
+    width: 100%;
+    height: 100%;
+  }
+  
+  #menu nav ul .dd:nth-child(2) .menu-dd ul li,
+  #menu nav ul .dd .menu-dd ul li  {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: auto;
+    align-items: center;
+    text-align: center;
+    border-radius: 8px;
+    padding: 0;
+  }
+
+  #menu nav ul .dd:nth-child(2) .menu-dd ul {
+    width: 100%;
+    height: auto;
+    gap: 20px;
+    justify-content: flex-start;
+  }
+
+  #menu nav ul .dd:nth-child(2) .menu-dd ul li:hover img ,
+  #menu nav ul .dd .menu-dd ul li a img,
+  #menu nav ul .dd .menu-dd ul li:hover img {
+    width: 40px;
+    height: 40px;
+  }
+  
+  #menu nav ul .dd .menu-dd ul li a {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    width: 100%;
+    height: auto;
+    gap: 10px;
+  }
+  
+  #menu nav ul .dd .menu-dd ul li a p{
+    width: auto;
+    height: auto;
+    color: #E5E5E5;
+    margin: 0;
+    font-size: 20px;
+    text-align: right;
+  }
+  
+  #menu nav ul .dd .menu-dd .menu-footer {
+    width: 100%;
+    height: auto;
+    background: #121419;
+    padding: 8px auto;
+    border-radius: 12px;
+    margin-left: 3vw;
+  }
+  
+  #menu nav ul .dd .menu-dd .menu-footer .links {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    justify-content: flex-start;
+    align-items: center; 
+    padding-block: 25px;
+  }
+
+
+
+  /*         Banner-hero          */
+  #banner-hero {
+    padding-top: calc(3.2rem + var(--nav-height));
+    padding-bottom: 71px;
+    background-position-x: 45%;
+  }
+
+  #banner-hero .heading {
+    flex-direction: column;
+    gap: 53px;
+    padding-top: 62px;
+    justify-content:flex-end;
+    padding-bottom: 20px;
+  }
+
+  #banner-hero .heading .games-cont {
+    flex-direction: row;
+    margin-top: 0;
+    order: 2;
+  }
+  
+  #banner-hero .heading .game-text {
+    min-width: 562px;
+  }
+
+  #banner-hero .heading .game-text h2 {
+    margin-top: 0;
+  }
+
+  #banner-hero .game-items {
+    position: absolute;
+    right: var(--pad-inline);
+    justify-content:flex-start;
+    padding-bottom: 0;
+    gap: 210px;
+    bottom: 86px;
+  }
+
+  #banner-hero .game-items .video {
+    padding-right: 0;
+  }
+
+  #banner-hero .game-items .video h4{
+    display: none;
+  }
+
+  #banner-hero .game-items .video svg {
+      right: 110px;
+  }
+
+   /*         Exclusive games          */
+
+   #exclusive-games {
+    padding-inline: var(--pad-inline);
+    padding-bottom: 8.6vh;
+  }
+
+   #exclusive-games .header h2 {
+    max-width: 175px;
+    padding-right: 0;
+  }
+
+   #exclusive-games .header h3 {
+    display: none;
+   }
+
+   #exclusive-games .header a {
+    margin-left: 0;
+  }
+
+  #exclusive-games .productList ul .cardGame .game-img ,
+  #exclusive-games .productList ul .see-more{
+    width: 281.46px;
+    height: 386px;
+  }
+
+  /*         Footer          */
+    
+  #footer {
+    height: 759px;
+    padding-top: 101px;
+    position: relative;
+  }
+
+  #footer .footer-images {
+    position: absolute;
+    z-index: 0;
+    top: 0;
+    left: 35%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 831.57px;
+    height: 737px;
+  }
+  
+  #footer .bt-download {
+    z-index: 1;
+    padding-top: 0;
+  }
+  
+  #footer .footer-images img {
+    width: 576.5px;
+    height: 306.9px;
+    bottom: 8%;
+    left: 30%;
+  }
+  
+  
+
+  /*------------------------------------------------------>768----------*/
+  @media (max-width: 768px) {
+    :root {
+      --pad-inline: 6vw;
+    }
+
+    /* menu-mobile */
+    #menu nav > ul {
+      right: -70%;
+      width: 70%;
+    }
+
+    /*         Login          */
+    #menu .modal-login {
+      width: 80%;
+      height: auto;
+      padding: 40px;
+      top: 10%;  
+    }
+
+    #menu .modal-login .close-menu {
+      margin: 12px 12px 5px 0;
+    }
+    
+    #menu .modal-login .login img {
+      width: 124.89px;
+      height: 15px;
+    }
+    
+    #menu .modal-login .login {
+      width: 95%;
+    }
+    
+    #menu .modal-login .login input {
+      width: 90%;
+      height: 42px;
+    }
+  
+    #menu .modal-login .login input[type=text] {
+      margin-top: 30px;
+      margin-bottom: 14px;
+    }
+
+    #menu .modal-login .login button {
+      width: 90%;
+      margin-top: 18px;
+      margin-bottom: 32px;
+    }
+    
+    #menu .modal-login .login button + p{
+      font-size: 12px;
+    }
+    
+    #menu .modal-login .login .others {
+      gap: 12px;
+    }
+    
+    #menu .modal-login .login .others a {
+      margin-top: 16px;
+      margin-bottom: 20px;
+    }
+
+    #menu .modal-login .login a,
+    #menu .modal-login .login p {
+      font-size: 14px;
+      line-height: 21px;
+    }
+    
+    #menu .modal-login .login div + p {
+      margin-bottom: 14px;
+      text-align: center;
+    }
+  
+    /*         Banner-hero               */
+
+    #banner-hero .game-items {
+      height: 525px;
+      justify-content: flex-end;
+    }
+    #banner-hero .game-items > img {
+      width: 280px;
+      height: 154px;
+    }
+
+    /* personalizado */
+    #banner-hero.B2 .heading .game-text h2 {
+      width: 510px;
+    }
+
+    #banner-hero.B5 .heading .game-text h2 {
+      width: 550px;
+    }
+
+
+    /*         Exclusive games          */
+    /*  capa dos jogos      */
+
+    #exclusive-games .productList ul .cardGame .game-img ,
+    #exclusive-games .productList ul .see-more{
+      width: 201.72px;
+      height: 276.64px;
+    }
+    
+    #exclusive-games .productList ul .cardGame img.logo {
+      width: 106.62px;
+      height: 70.6px;
+    } 
+    
+    #exclusive-games .productList ul .cardGame h3 {
+      font-size: 1.6rem;
+      line-height: 2.4rem;
+      margin-bottom: 2.8px;
+    }
+    
+    #exclusive-games .productList ul .see-more {
+      border: 1.5px solid #212428 ;
+      gap: 34px;
+    }    
+  }
+
+}
+
+ /*------------------------------------------------------>720----------*/
+ @media (max-width: 720px) {
+
+    /*                      MENU                      */
+    #menu .modal-login {
+      height: auto;
+      padding-bottom: 40px;
+    }
+    /*         nav          */
+    #menu nav .nav-buttons,
+    #menu nav .nav-buttons button:first-child {
+      display: none;
+    }
+
+    body.menu-expanded #menu nav .nav-buttons {
+      display: block;
+      position: absolute;
+      z-index: 10;
+      left: 50%;
+    }
+    
+
+    #menu nav {
+      justify-content: space-between;
+    }
+
+    #menu nav a img{
+      width: 69.42px;
+      height: 32px;
+    }
+
+  /*         Banner-hero          */
+
+    #banner-hero {
+      padding-top: var(--nav-height);
+      padding-inline: var(--pad-inline);
+      padding-bottom: 65px;
+    }
+
+    /* personalizar posição dos bgs do banners */
+    #banner-hero.B2,
+    #banner-hero.B3  {
+      background-position-x: 70%;
+    }
+
+    #banner-hero h2 {
+      font-size: 4rem;
+    }
+
+    #banner-hero p {
+      font-size: 18px
+    }
+
+    #banner-hero .game-items {
+      display: none;
+    }
+
+    #banner-hero .heading {
+      padding-top: 0;
+      width: 100%;
+      justify-content: flex-end;
+    }
+
+    #banner-hero .heading .game-text {
+      min-width: 0;
+      width: 320px;
+    }
+    
+    #banner-hero .heading .game-text h2 {
+      font-size: 4.8rem;
+    }
+    
+    #banner-hero .heading .game-text p {
+      width: 300px;
+      font-size: 1.6rem;
+    }
+
+    /*         Exclusive games          */
+      #exclusive-games .header .platforms {
+        display: none;
+    }
+
+    #exclusive-games .header h2 {
+      font-size: 2.8rem;
+    }
+
+    #exclusive-games .header a {
+      font-size: 1.4rem;
+      line-height: 2.1rem;
+    }
+
+    #exclusive-games .productList ul {
+      justify-content: center;
+      gap: 10px;
+    }
+
+    #exclusive-games .productList ul .cardGame .game-img ,
+    #exclusive-games .productList ul .see-more{
+      width: 176px;
+      height: 241.37px;
+    }
+
+    #exclusive-games .productList ul .cardGame h3 {
+      font-size: 1.4rem;
+      line-height: 2.1rem;
+      margin-bottom: 2px;
+    }
+
+    #exclusive-games .productList ul .cardGame .category{
+      font-size: 1.2rem;
+    }
+    
+    #exclusive-games .productList ul .see-more {
+      border: 0.830357px solid #212428;
+      gap: 15px;
+    }   
+    
+    #exclusive-games .productList ul .see-more p {
+      font-size: 1.4rem;
+      line-height: 2.1rem;
+    }
+
+    #exclusive-games .productList ul .see-more p img{
+      display: none;
+    }
+
+    /*         Footer          */
+    
+    #footer {
+      height: 1000px;
+      flex-direction: column;
+      background-image: url(/assets/ilustrations/bg-mobile.png);
+      background-position-y: 20px;
+      padding-left: 0;
+    }
+
+    #footer .footer-images {
+      position: relative;
+      z-index: 0;
+      top: 0;
+      left: 0;
+      background-size: cover;
+      background-repeat: no-repeat;
+      width: 590px;
+      height: 534.27px;
+      background-position-x: -30px;
+    }
+    
+    #footer .bt-download {
+      z-index: 1;
+      padding-top: 0;
+      padding-inline: var(--pad-inline);
+    }
+
+    #footer .bt-download h3 {
+      width: 70%;
+    }
+    
+    #footer .footer-images img {
+      width: 576.5px;
+      height: 306.9px;
+      bottom: 0;
+      left: 20%;
+    }
+
+      /*------------------------------------------------------>375----------*/
+      @media (max-width: 375px) {
+        :root {
+          --nav-height: 8rem;
+          --pad-inline: 5vw;
+        }
+
+        /* menu-mobile */
+        #menu nav > ul {
+          right: -100%;
+          width: 100%;
+          z-index: -1;
+        }
+
+
+
+        /*         Banner-hero          */
+        #banner-hero {
+          height: 625px;
+          background-size: cover;
+        }
+        
+        #banner-hero .heading{
+          justify-content: flex-end;
+        }
+
+        #banner-hero .heading .game-text {
+          width: 302px;
+        }
+
+        #banner-hero .heading .game-text h2 {
+          font-size: 4rem;
+        }
+        
+        #banner-hero .heading .game-text p {
+          font-size: 1.8rem;
+        }
+
+        #banner-hero .heading .games-cont {
+          gap: 16px;
+        }
+
+        /*         Exclusive games          */
+        
+        #exclusive-games {
+          padding-bottom: 6.6vh;
+        }
+
+        #exclusive-games .productList ul {
+          justify-content: space-between;
+          gap: 24px 0;
+        }
+
+        @media (hover: none) {
+          #exclusive-games .productList ul {
+            justify-content: center;
+            gap: 24px 16px;
+          }
+        }
+
+
+        #exclusive-games .productList ul .cardGame ,
+        #exclusive-games .productList ul .see-more{
+          width: 156px;
+          height: 213.94px;
+        }
+
+        #exclusive-games .productList ul .cardGame .game-img {
+          width: 100%;
+          height: 100%;
+        }
+
+        #exclusive-games .productList ul .cardGame .game-img,
+        #exclusive-games .productList ul .see-more{
+          margin-bottom: 0;
+        }
+
+        #exclusive-games .productList ul .cardGame h3,
+        #exclusive-games .productList ul .cardGame .category {
+          display: none;
+        }
+
+        #exclusive-games .productList ul .cardGame img.logo {
+          width: 82.46px;
+          height: 54.6px;
+          bottom: 20.4px;
+          pointer-events: fill;
+        }
+        
+        #exclusive-games .productList ul .see-more {
+          border: 0.830357px solid #212428;
+          gap: 15px;
+        }   
+        
+        #exclusive-games .productList ul .see-more p {
+          font-size: 1.4rem;
+          line-height: 2.1rem;
+        }
+
+        #exclusive-games .productList ul .see-more p img{
+          display: none;
+        }
+
+        /*         Footer          */
+        
+        #footer {
+          height: 950px;
+          padding-top: 63px;
+        }
+
+        #footer .footer-images {
+          width: 490px;
+          height: 434.27px;
+          background-position-x: -30px;
+        }
+        
+        #footer .footer-images img {
+          width: 462.02px;
+          height: 246px;
+          bottom: 0;
+          left: 20%;
+    }
+  }
+}
 
 
 
